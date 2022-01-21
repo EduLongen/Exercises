@@ -11,16 +11,22 @@
 # There are lots of ways to solve these tasks - choose your favourite methods from the examples above and see what you can come up with.
 # 1. Get message from a log line
 # 2. Get log level from a log line
-# 3. Reformat a log line
 
 class LogLineParser
-    attr_reader :message, :log_level, :reformat
-    
-    def initialize(line)
-      @line = line
-      groups = /\[(?<level>[A-Z]+)\]:\s+(?<msg>.+)/.match(@line)
-      @log_level = groups[:level].downcase
-      @message = groups[:msg].strip
-      @reformat = "#{@message} (#{@log_level})"
-    end
+  
+  def initialize(line)
+    @line = line
   end
+  
+  def message
+    @line.split(':').last.strip
+  end
+  
+  def log_level
+    @line.split(']').first[1..-1].downcase
+  end
+  
+  def reformat
+    "#{message} (#{log_level})"
+  end
+end
