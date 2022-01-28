@@ -9,7 +9,6 @@
 class FlattenArray
 
     def self.flatten(array)
-        array = array.flatten
-        array.select { |num| num != nil }
+        array.flatten.compact
     end
 end
